@@ -14,21 +14,21 @@ public class Main {
         Product p5 = new Product("p5", 9);
         Product p6 = new Product("p6", 3);
 
-        List<Product> l = new LinkedList<>();
-        l.add(p1);
-        l.add(p2);
-        l.add(p3);
-        l.add(p4);
-        l.add(p5);
-        l.add(p6);
-        l.sort(new ProductComparator());
-        System.out.println(l);
+        List<Product> list = new LinkedList<>();
+        list.add(p1);
+        list.add(p2);
+        list.add(p3);
+        list.add(p4);
+        list.add(p5);
+        list.add(p6);
+        list.sort(new ProductComparator());
+        System.out.println(list);
 
         HashSet<Product> hashSet = new HashSet<>();
-        hashSet.addAll(l);
-        l.clear();
-        l.addAll(hashSet);
-        l.sort(new ProductComparator());
-        System.out.println(l);
+        hashSet.addAll(list);
+        list.clear();
+        list.addAll(hashSet);
+        list.sort(new ProductComparator());
+        System.out.println(list);
     }
 }
