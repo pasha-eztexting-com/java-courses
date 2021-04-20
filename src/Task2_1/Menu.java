@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private String saveFileName = "pudge.bin";
+    private final String saveFileName = "pudge.bin";
     private ResourceBundle bundle;
 
     public Menu(ResourceBundle bundle) {
@@ -81,39 +81,18 @@ public class Menu {
     }
 
     private void savePudge(Pudge pudge){
-        FileOutputStream fos = null;
-        ObjectOutputStream oos = null;
-        try {
-            fos = new FileOutputStream(saveFileName);
-            oos = new ObjectOutputStream(fos);
+        try (FileOutputStream fos = new FileOutputStream(saveFileName);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(pudge);
             System.out.println(bundle.getString("pudgeSaved")  + pudge);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (oos != null) {
-                try {
-                    oos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
     private Pudge loadPudge() {
-        FileInputStream fis = null;
-        ObjectInputStream ois = null;
-        try {
-            fis = new FileInputStream(saveFileName);
-            ois = new ObjectInputStream(fis);
+        try (FileInputStream fis = new FileInputStream(saveFileName);
+              ObjectInputStream ois = new ObjectInputStream(fis)){
             Pudge pudge = (Pudge) ois.readObject();
             System.out.println(bundle.getString("pudgeLoaded") + pudge);
             return pudge;
@@ -123,21 +102,6 @@ public class Menu {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (ois != null) {
-                try {
-                    ois.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return null;
     }
